@@ -1,2 +1,10 @@
 streamlit
 google-generativeai
+google-genai
+Pillow
+SpeechRecognition
+graphviz
+pyttsx3
+pandas
+plotly
+matplotlib
