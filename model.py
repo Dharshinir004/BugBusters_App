@@ -1367,60 +1367,95 @@ def get_open_source_resources_for_topic(topic):
             {'name': 'Discord Learning Communities', 'url': 'https://discord.com/'},
         ]
     }
-# --- UI Layout and Styling ---
-st.set_page_config(
-    page_title="Learning Path Platform",
-    page_icon="🎓",
-    layout="wide",
-    menu_items=None  # Removes Streamlit menu
-)
-
 st.markdown("""
 <style>
-    /* Hide Streamlit header and menu */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    .stDeployButton {display:none;}
-    div[data-testid="stToolbar"] {display:none;}
-    /* Animated gradient background */
-    .stApp {
-        background: linear-gradient(135deg, #0a1a40, #1e3a8a, #0a1a40);
-        background-size: 400% 400%;
-        animation: gradientShift 10s ease infinite;
+    /* Hide the sidebar */
+    [data-testid="stSidebar"] {
+        display: none;
     }
-
-    @keyframes gradientShift {
+    
+    /* Remove default Streamlit styling */
+    .stApp {
+        background: linear-gradient(140deg, #0b1d51 0%, #000000 50%,#2b0036 100%);
+        background-attachment: fixed !important;
+        background-size: 400% 400%;
+        animation: massGradient 15s ease infinite;
+        position: relative;
+    }
+    
+    @keyframes massGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
-
-
-    /* Smooth Gradient Background Animation */
-    body {
-        background: linear-gradient(135deg, #0a1a40, #00112b, #0a1a40);
-        background-size: 300% 300%;
-        animation: gradientShift 12s ease infinite;
-        color: #f8f9fa;
-        font-family: 'Poppins', sans-serif;
+    
+    /* Animated Background Graphics */
+    .stApp::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+        animation: floatBackground 20s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
     }
-
-    @keyframes gradientShift {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
+    
+    @keyframes floatBackground {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(30px, -30px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
     }
+    
+    /* Geometric Shapes */
+    .stApp::after {
+        content: '';
+        position: fixed;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background-image: 
+            linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.03) 49%, rgba(255, 255, 255, 0.03) 51%, transparent 52%),
+            linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.03) 49%, rgba(255, 255, 255, 0.03) 51%, transparent 52%);
+        background-size: 100px 100px;
+        animation: rotateBackground 60s linear infinite;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    @keyframes rotateBackground {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Apply background to all pages */
+    [data-testid="stAppViewContainer"] {
+        background: transparent !important;
+        position: relative;
+        z-index: 1;
+    }
+    
+    [data-testid="stHeader"] {
+        background: transparent !important;
+    }
+    
 
     /* Main Header */
     .main-header {
-        background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(59,130,246,0.8));
+        background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(30,64,175,0.2));
         padding: 30px;
         border-radius: 15px;
         color: #f8f9fa;
         text-align: center;
         margin-bottom: 40px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         backdrop-filter: blur(10px);
         animation: fadeInDown 1s ease-out;
     }
@@ -1429,14 +1464,14 @@ st.markdown("""
         margin-bottom: 10px;
         font-weight: 700;
         letter-spacing: 1px;
-        background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
+        background: linear-gradient(90deg, #60a5fa, #7dd3fc, #38bdf8);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     .main-header p {
         font-size: 1.2em;
         opacity: 0.9;
-        color: #e2e8f0;
+        color: #cbd5e1;
     }
 
     @keyframes fadeInDown {
@@ -1449,13 +1484,13 @@ st.markdown("""
         max-width: 500px;
         margin: 50px auto;
         padding: 40px;
-        background: rgba(17,24,39,0.8);
+        background: rgba(15,23,42,0.85);
         border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7);
         animation: fadeIn 0.8s ease-out;
         color: #f1f5f9;
         border: 1px solid rgba(255,255,255,0.1);
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(12px);
     }
 
     /* Buttons */
@@ -1467,11 +1502,11 @@ st.markdown("""
         border-radius: 30px;
         font-weight: bold;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 15px rgba(59,130,246,0.4);
     }
     .stButton>button:hover {
         transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 6px 25px rgba(37,99,235,0.5);
+        box-shadow: 0 6px 25px rgba(59,130,246,0.6);
     }
 
     /* Inputs */
@@ -1479,8 +1514,8 @@ st.markdown("""
     .stTextArea>div>textarea,
     .stSelectbox>div>div,
     .stFileUploader>div>div {
-        background-color: rgba(31,41,55,0.9) !important;
-        border: 1px solid #374151 !important;
+        background-color: rgba(17,24,39,0.9) !important;
+        border: 1px solid #334155 !important;
         border-radius: 10px !important;
         padding: 10px 15px !important;
         color: #f8f9fa !important;
@@ -1488,23 +1523,23 @@ st.markdown("""
     }
     .stTextInput>div>div>input:focus,
     .stTextArea>div>textarea:focus {
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 8px rgba(59,130,246,0.5) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 8px rgba(56,189,248,0.6) !important;
     }
 
     /* Dashboard Cards */
     .dashboard-card {
-        background: rgba(30,41,59,0.9);
+        background: rgba(24,33,56,0.95);
         padding: 25px;
         border-radius: 18px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.5);
         margin-bottom: 25px;
         transition: all 0.3s ease;
         color: #e2e8f0;
         border: 1px solid rgba(255,255,255,0.05);
     }
     .dashboard-card:hover {
-        box-shadow: 0 8px 30px rgba(59,130,246,0.4);
+        box-shadow: 0 8px 30px rgba(56,189,248,0.4);
         transform: translateY(-5px);
     }
     .dashboard-card h3 {
@@ -1515,35 +1550,33 @@ st.markdown("""
 
     /* Progress Bar */
     .stProgress > div > div > div > div {
-        background-color: #3b82f6 !important;
+        background-color: #38bdf8 !important;
     }
 
     /* Skill Tags */
     .skill-tag, .achievement-badge {
         display: inline-block;
-        background-color: #1d4ed8;
+        background-color: #1e3a8a;
         color: #e0e7ff;
         padding: 8px 18px;
         border-radius: 25px;
         margin: 5px;
         font-size: 0.9em;
         font-weight: 500;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .achievement-badge {
-        background: linear-gradient(45deg, #ffd700 0%, #ffed4e 100%);
+        background: linear-gradient(45deg, #facc15 0%, #fde047 100%);
         color: #1e293b;
         font-weight: bold;
     }
 
-    /* Fade In Animation */
     @keyframes fadeIn {
         from {opacity: 0; transform: translateY(20px);}
         to {opacity: 1; transform: translateY(0);}
     }
 </style>
 """, unsafe_allow_html=True)
-
 
 # --- Page Functions ---
 def login_page():
